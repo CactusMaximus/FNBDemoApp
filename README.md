@@ -10,8 +10,8 @@ This is a simple change calculation app that does the following:
 
 Method:
 
- func calculateCustomerChange(from inputAmount: Int,
-                              deductionAmount: Int) -> [(String, Int)] {
+    func calculateCustomerChange(from inputAmount: Int,
+                                 deductionAmount: Int) -> [(String, Int)] {
         
         var arrayOfChange = [(String, Int)]()
         let notes = [200, 100, 50, 20, 10]
