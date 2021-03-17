@@ -56,3 +56,13 @@ Method:
         
         return arrayOfChange
     }
+    
+    
+** Sample Request:**
+ 
+ calculateCustomerChange(from: 50, deductionAmount: 11)
+ 
+** Sample Response:**
+   
+ [("R20 note:", 1), ("R10 note:", 1), ("R5 coin:", 1), ("R2 coin:", 2)]
+   
