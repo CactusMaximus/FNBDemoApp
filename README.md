@@ -14,15 +14,15 @@ Method:
                                  deductionAmount: Int) -> [(String, Int)] {
         
         var arrayOfChange = [(String, Int)]()
-        let notes = [200, 100, 50, 20, 10]
-        let coins = [5, 2, 1]
+        let noteDenominations = [200, 100, 50, 20, 10]
+        let coinDenominations = [5, 2, 1]
         var noteCounter = [0, 0, 0, 0, 0]
         var coinCounter = [0, 0, 0]
-        var amount = 0
+        var changeAmount = 0
         
         //Amount validation checks
         if inputAmount > deductionAmount {
-            amount = inputAmount - deductionAmount
+            changeAmount = inputAmount - deductionAmount
         } else if inputAmount == deductionAmount {
             print("No change needed - Thank you, have a nice day!")
             return arrayOfChange
@@ -33,23 +33,23 @@ Method:
         }
         
         //Proceed with note calculation
-        for i in 0..<notes.count {
-            if amount >= notes[i] {
-                noteCounter[i] = (amount / notes[i])
-                amount = amount - noteCounter[i] * notes[i]
+        for i in 0..<noteDenominations.count {
+            if changeAmount >= noteDenominations[i] {
+                noteCounter[i] = (changeAmount / noteDenominations[i])
+                changeAmount = changeAmount - noteCounter[i] * noteDenominations[i]
                 if noteCounter[i] != 0 {
-                    arrayOfChange.append(("R\(notes[i]) note:", noteCounter[i]))
+                    arrayOfChange.append(("R\(noteDenominations[i]) note:", noteCounter[i]))
                 }
             }
         }
         
         //Proceed with coin calculation
-        for i in 0..<coins.count {
-            if amount >= coins[i] {
-                coinCounter[i] = (amount / coins[i])
-                amount = amount - coinCounter[i] * coins[i]
+        for i in 0..<coinDenominations.count {
+            if changeAmount >= coinDenominations[i] {
+                coinCounter[i] = (changeAmount / coinDenominations[i])
+                changeAmount = changeAmount - coinCounter[i] * coinDenominations[i]
                 if coinCounter[i] != 0 {
-                    arrayOfChange.append(("R\(coins[i]) coin:", coinCounter[i]))
+                    arrayOfChange.append(("R\(coinDenominations[i]) coin:", coinCounter[i]))
                 }
             }
         }
