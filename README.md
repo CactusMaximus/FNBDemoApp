@@ -1,7 +1,7 @@
 # FNBDemoApp
 
 
-This is a simple change calculation app that does the following:
+This is a simple change calculation app built in Swift that does the following:
 1) Calculates change in both notes and coins
 2) Checks if amount input is greater than the required amount
 3) Will not return any change if there isn't any
