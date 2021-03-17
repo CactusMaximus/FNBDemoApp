@@ -9,11 +9,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var inputAmountView: UITextField!
+    @IBOutlet var deductionAmountView: UITextField!
+    @IBOutlet var outputLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(calculateCustomerChange(from: 50, deductionAmount: 11))
+        inputAmountView.delegate = self
+        deductionAmountView.delegate = self
+        self.view.alpha = 1
+        UIView.animate(withDuration: 0.5) { [weak self] in
+          self?.view.layoutIfNeeded()
+        }
     }
-
+    
+    @IBAction func calculateButtonTapped(_ sender: Any) {
+        let inputAmount = Int(inputAmountView.text ?? "0")
+        let deductionAmount = Int(deductionAmountView.text ?? "0")
+        outputLabel.text = ""
+        outputLabel.text = calculateCustomerChange(from: inputAmount ?? 0, deductionAmount: deductionAmount ?? 0).description
+    }
+    
     func calculateCustomerChange(from inputAmount: Int,
                                  deductionAmount: Int) -> [(String, Int)] {
         
@@ -28,11 +44,11 @@ class ViewController: UIViewController {
         if inputAmount > deductionAmount {
             changeAmount = inputAmount - deductionAmount
         } else if inputAmount == deductionAmount {
-            print("No change needed - Thank you, have a nice day!")
+            showAlert(title: "No change needed", message: "Thank you, have a nice day!")
             return arrayOfChange
         } else {
             let amountOutstanding = deductionAmount - inputAmount
-            print("Please enter an outstanding amount of R\(amountOutstanding) to pay your bill")
+            showAlert(title: "Amount outstanding:", message: "Please enter an outstanding amount of R\(amountOutstanding) to pay your bill")
             return arrayOfChange
         }
         
@@ -60,5 +76,20 @@ class ViewController: UIViewController {
         
         return arrayOfChange
     }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == inputAmountView
+            || textField == deductionAmountView {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+}
